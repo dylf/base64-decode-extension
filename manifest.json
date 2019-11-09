@@ -1,0 +1,29 @@
+{
+    "name": "Base 64 Decode",
+    "version": "0.1",
+    "description": "Add a right-click option to base64 decode text",
+    "permissions": [
+        "activeTab",
+        "contextMenus"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ],
+    "background": {
+        "scripts": [
+            "globals.js",
+            "main.js"
+        ],
+        "persistent": false
+    },
+    "icons": {
+        "16": "images/icon_16.png",
+        "32": "images/icon_32.png",
+        "48": "images/icon_48.png",
+        "128": "images/icon_128.png"
+    },
+    "manifest_version": 2
+}
