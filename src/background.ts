@@ -27,7 +27,7 @@ const openUrlMenuItem = {
 /**
  * Add an event listener for responding to the 'updateContextMenu' message.
  */
-chrome.extension.onMessage.addListener((msg, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.request !== 'updateContextMenu') {
     return
   }
@@ -37,7 +37,11 @@ chrome.extension.onMessage.addListener((msg, sender, sendResponse) => {
     return
   }
   if (isUrl(decode(msg.selection))) {
-    createOrUpdateMenuItem(openUrlMenuItem)
+    createOrUpdateMenuItem({
+      id: openUrlMenuItem.id,
+      title: `Go to ${decode(msg.selection)}`,
+      enabled: true,
+    })
     removeMenuItem(decodeMenuItem)
     return
   }
@@ -57,18 +61,19 @@ function removeMenuItem(menuItem: ContextMenuItem) {
  * Create or update a context menu item
  */
 function createOrUpdateMenuItem(menuItem: ContextMenuItem) {
-  let options = {
-    id: menuItem,
-    title: menuItem.title,
-    contexts: ['selection'],
-  }
-
   if (menuItem.enabled) {
-    chrome.contextMenus.update(menuItem.id, options)
+    chrome.contextMenus.update(menuItem.id, {
+      title: menuItem.title,
+      contexts: ['selection'],
+    })
     return
   }
 
-  chrome.contextMenus.create({ ..options, ...{ id: menuItem.id } })
+  chrome.contextMenus.create({
+    id: menuItem.id,
+    title: menuItem.title,
+    contexts: ['selection'],
+  })
   menuItem.enabled = true
 }
 
@@ -90,6 +95,8 @@ chrome.contextMenus.onClicked.addListener((clickData, tab) => {
     openNewTab(decode(clickData.selectionText))
   }
   if (clickData.menuItemId === decodeMenuItem.id && tab != null) {
-    alert('Selected ' + decode(clickData.selectionText) + ' in ' + tab.url)
+    console.log(
+      'Selected ' + decode(clickData.selectionText) + ' in ' + tab.url
+    )
   }
 })
