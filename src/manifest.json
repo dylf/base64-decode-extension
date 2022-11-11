@@ -1,7 +1,7 @@
 {
     "$schema": "https://json.schemastore.org/chrome-manifest",
     "name": "Base 64 Decode",
-    "version": "0.1",
+    "version": "1.0.0",
     "description": "Add a right-click option to base64 decode text",
     "permissions": [
         "activeTab",
