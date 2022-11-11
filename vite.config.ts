@@ -7,6 +7,7 @@ export default defineConfig({
     'import.meta.vitest': 'undefined',
   },
   test: {
+    globals: true,
     includeSource: ['src/**/*.{js,ts}'],
   },
   resolve: {
