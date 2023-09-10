@@ -8,6 +8,4 @@ Have you ever needed to use base 64 decode on text in a web page? How about visi
 
 This extension adds menu items for your right-click context menu when you select text that is base64 encoded on a page.
 
-￼
 ![Screenshot](./screenshot.jpg)
-
